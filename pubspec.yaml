@@ -26,6 +26,7 @@ dependencies:
   dio: ^5.7.0
   gap: ^3.0.1
   flutter_dotenv: ^5.0.2
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

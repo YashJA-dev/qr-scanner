@@ -4,61 +4,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qrscanner/bloc/scanner_qr_bloc/scanned_qr_bloc.dart';
+import 'package:qrscanner/components/custom_circular_indecator.dart';
 import 'package:qrscanner/configs/app_colors.dart';
 import 'package:qrscanner/dialog/toaster.dart';
 import 'package:toastification/toastification.dart';
 
 class QRListScreen extends StatelessWidget {
+  final ScannedQrState state;
+  const QRListScreen({required this.state});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScannedQrBloc, ScannedQrState>(
-      buildWhen: (previous, current) {
-        return current is ScannedQrLoadedState;
-      },
-      builder: (context, state) {
-        log(state.runtimeType.toString());
-
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBar(
-              backgroundColor: AppColors.black,
-              title: Text("QR List"),
-              titleTextStyle: TextStyle(color: AppColors.white),
-              centerTitle: true,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: (state is ScannedQrLoadedState)
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.center,
-                crossAxisAlignment: (state is ScannedQrLoadedState)
-                    ? CrossAxisAlignment.start
-                    : CrossAxisAlignment.center,
-                children: [
-                  if (state is ScannedQrLoadedState)
-                    getQrCodes(state)
-                  else if (state is ScannedQrLoadingState)
-                    Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
-                    )
-                  else if (state is ScannedQrInitialState)
-                    Center(
-                      child: Text("NO Qr Scanned"),
-                    )
-                  else
-                    Center(
-                      child: Text("Error"),
-                    )
-                ],
-              ),
-            ),
-          ],
-        );
-      },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppBar(
+          backgroundColor: AppColors.black,
+          title: Text("QR List"),
+          titleTextStyle: TextStyle(color: AppColors.white),
+          centerTitle: true,
+        ),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: (state is ScannedQrLoadedState)
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.center,
+            crossAxisAlignment: (state is ScannedQrLoadedState)
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.center,
+            children: [
+              if (state is ScannedQrLoadedState && state.qrCodes.isNotEmpty)
+                getQrCodes(state as ScannedQrLoadedState)
+              else if ((state is ScannedQrLoadingState))
+                CustomCircularIndicator()
+              else if (state is ScannedQrInitialState || state.qrCodes.isEmpty)
+                Center(
+                  child: Text("NO Qr Scanned"),
+                )
+            ],
+          ),
+        ),
+      ],
     );
   }
 

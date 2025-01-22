@@ -31,11 +31,11 @@ class ToastMessage {
       padding: padding,
       autoCloseDuration: autoCloseDuration ??
           const Duration(
-            seconds: 3,
+            seconds: 2,
           ),
       alignment: Alignment.topCenter,
       closeOnClick: true,
-      primaryColor: AppColors.green,
+      // primaryColor: AppColors.primary,
       pauseOnHover: false,
       style: toastificationStyle ?? ToastificationStyle.flatColored,
     );
