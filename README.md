@@ -8,10 +8,6 @@ The QRScanner app allows users to scan QR codes and store relevant information. 
 2. Store Data: The app stores the user's name and URL associated with the scanned QR code to a Google Sheet for easy access and management.
 3. Current Session Listing: The right tab displays the list of QR codes scanned during the current session, without including data from the Google Sheet.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
 ## Prerequisites
 Before getting started, ensure you have the following setup:
 
