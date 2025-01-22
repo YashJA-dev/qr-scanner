@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -27,8 +28,8 @@ class ScannedQrBloc extends Bloc<ScannedQrEvent, ScannedQrState> {
       await sheetApiRepo.insert({
         "User Name": qrModel.userName,
         "Url": qrModel.url,
+        "Date Time": DateTime.now().toIso8601String(),
       });
-
       if (currentState is ScannedQrLoadedState) {
         emit(
           ScannedQrLoadedState(qrCodes: currentState.qrCodes..add(qrModel)),
@@ -39,6 +40,7 @@ class ScannedQrBloc extends Bloc<ScannedQrEvent, ScannedQrState> {
         );
       }
     } catch (e) {
+      log("ERROR ${e.toString()}");
       emit(ScannedQrErrorState("Error adding QR code"));
     }
   }
