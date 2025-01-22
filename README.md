@@ -42,17 +42,32 @@ This project uses the following packages:
 ## Project Setup
 This Flutter project integrates with Google Sheets to read and write data. To enable Google Sheets access, you'll need a service account and credentials in JSON format. This guide will walk you through how to create a service account, configure your Google Sheets, and use the credentials in This Flutter project.
 
+1. Enable Google Sheets API
+  - Go to the Google Cloud Console.
+  - Create a new project or select an existing one.
+  - Enable the Google Sheets API:
+  - Navigate to APIs & Services > Library.
+  - Search for Google Sheets API and enable it.
+  - Enable the Google Drive API (for spreadsheet creation if needed).
 
-## Setup Instructions
+2. Create a Service Account
+  - Navigate to APIs & Services > Credentials.
+  - Click Create Credentials > Service Account.
+  - Fill in the details and proceed.
+  - Once the service account is created:
+  - Go to the Keys tab under the service account.
+  - Click Add Key > JSON to download the credentials file.
+  - Share your Google Sheet with the service account email (e.g., service-account-name@project-id.iam.gserviceaccount.com) and give it edit access.
 
-1. Create .env File
+3. Create .env File
   In the root of your Flutter project, create a .env file with the following content:
   ```
   SPREADSHEET_ID=your_spreadsheet_id_here
   GOOGLE_CREDENTIALS='your_google_credentials_json_here'
   QR_SHEET_TITLE=qrsheet
 ````
-2. Add the Correct Values
+
+4. Add the Correct Values
 
 - SPREADSHEET_ID: Replace your_spreadsheet_id_here with the actual ID of your Google Sheet. The spreadsheet ID is the long alphanumeric string in the Google Sheets URL (e.g., https://docs.google.com/spreadsheets/d/<SPREADSHEET_ID>/edit).
 
@@ -60,7 +75,7 @@ This Flutter project integrates with Google Sheets to read and write data. To en
 
 - QR_SHEET_TITLE: Set the title of your Google Sheets worksheet where QR data is stored (default is qrsheet).
 
-3. Run ``` flutter pub get   ``` to install all dependencies 
+5. Run ``` flutter pub get   ``` to install all dependencies 
 
 
 
